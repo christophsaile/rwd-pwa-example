@@ -1,20 +1,21 @@
-// const cacheName = 'PWA Example-v1';
-// const staticAssets = [
-//   './assets/*',
-//   './index.html',
-//   './styles.css',
-//   './main.js',
-// ];
+const cacheName = 'PWA Example-v1';
+const staticAssets = [
+  './',
+  './index.html',
+  './styles.css',
+  './main.js',
+  './manifest.json'
+];
 
-// self.addEventListener('install', async e => {
-//   const cache = await caches.open(cacheName);
-//   await cache.addAll(staticAssets);
-//   return self.skipWaiting();
-// });
+self.addEventListener('install', async e => {
+  const cache = await caches.open(cacheName);
+  await cache.addAll(staticAssets);
+  return self.skipWaiting();
+});
 
-// self.addEventListener('activate', e => {
-//   self.clients.claim();
-// });
+self.addEventListener('activate', e => {
+  self.clients.claim();
+});
 
 // self.addEventListener('fetch', async e => {
 //   const req = e.request;
