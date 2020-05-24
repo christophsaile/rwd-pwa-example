@@ -7,6 +7,7 @@ const staticAssets = [
   './manifest.json'
 ];
 
+// Cache static files when the Services Worker gets installed
 self.addEventListener('install', async e => {
   const cache = await caches.open(cacheName);
   await cache.addAll(staticAssets);
