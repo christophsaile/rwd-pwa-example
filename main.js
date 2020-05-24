@@ -14,6 +14,7 @@ async function initServiceWorker() {
   }
 }
 
+// Optional App Download Button
 function initDownloadButton() {
   let deferredPrompt;
   window.addEventListener("beforeinstallprompt", (event) => {
