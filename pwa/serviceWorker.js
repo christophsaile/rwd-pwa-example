@@ -1,9 +1,9 @@
-const cacheName = 'news-v1';
+const cacheName = 'PWA Example-v1';
 const staticAssets = [
-  './assets/*',
-  './index.html',
-  './styles.css',
-  './main.js',
+  '../assets/*',
+  '../index.html',
+  '../styles.css',
+  '../main.js',
 ];
 
 self.addEventListener('install', async e => {
