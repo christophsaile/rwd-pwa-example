@@ -1,0 +1,1 @@
+<h1>Progressive Web App example for the Responsive Webdesign lecture</h1>
