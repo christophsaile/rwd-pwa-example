@@ -1,13 +1,12 @@
-window.addEventListener('load', function() {
-    initServiceWorker();
+window.addEventListener("load", function () {
+  initServiceWorker();
 });
 
-async function initServiceWorker() {
-    if('serviceWorker' in navigator) {
-        try {
-            await navigator.serviceWorker.register('./pwa/serviceWorker.js');
-        } catch (e) {
-            console.log( 'ServiceWorker registration failed')
-        }
-    }
+// Register service worker.
+function initServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./pwa/serviceWorker.js").then((reg) => {
+      console.log("Service worker registered.", reg);
+    });
+  }
 }

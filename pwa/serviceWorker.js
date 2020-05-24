@@ -1,4 +1,4 @@
-const STATIC_ASSETS = ["./", "./index.html", "./styles.css", "./main.js"];
+const STATIC_ASSETS = ["./index.html", "./styles.css", "./main.js"];
 
 // Precache static resources here.
 evt.waitUntil(
