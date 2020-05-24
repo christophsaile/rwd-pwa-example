@@ -1,11 +1,10 @@
 const cacheName = 'pwa-v1';
 const staticAssets = [
-  './assets/pwa.png',
-  './assets/checklist.png',
   './index.html',
   './style.css',
   './main.js',
-  './manifest.json'
+  './manifest.json',
+  './assets/background.jpg'
 ];
 
 // Cache static files when the Services Worker gets installed
