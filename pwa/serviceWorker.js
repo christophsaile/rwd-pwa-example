@@ -1,36 +1,46 @@
-const STATIC_ASSETS = ["./index.html", "./styles.css", "./main.js"];
+const cacheName = 'news-v1';
+const staticAssets = [
+  './assets/*',
+  './index.html',
+  './styles.css',
+  './main.js',
+];
 
-// Precache static resources here.
-evt.waitUntil(
-  caches.open(CACHE_NAME).then((cache) => {
-    console.log("[ServiceWorker] Pre-caching offline page");
-    return cache.addAll(STATIC_ASSETS);
-  })
-);
+self.addEventListener('install', async e => {
+  const cache = await caches.open(cacheName);
+  await cache.addAll(staticAssets);
+  return self.skipWaiting();
+});
 
-// Remove previous cached data from disk.
-evt.waitUntil(
-  caches.keys().then((keyList) => {
-    return Promise.all(
-      keyList.map((key) => {
-        if (key !== CACHE_NAME) {
-          console.log("[ServiceWorker] Removing old cache", key);
-          return caches.delete(key);
-        }
-      })
-    );
-  })
-);
+self.addEventListener('activate', e => {
+  self.clients.claim();
+});
 
-// Add fetch event handler here.
-if (evt.request.mode !== "navigate") {
-  // Not a page navigation, bail.
-  return;
+self.addEventListener('fetch', async e => {
+  const req = e.request;
+  const url = new URL(req.url);
+
+  if (url.origin === location.origin) {
+    e.respondWith(cacheFirst(req));
+  } else {
+    e.respondWith(networkAndCache(req));
+  }
+});
+
+async function cacheFirst(req) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(req);
+  return cached || fetch(req);
 }
-evt.respondWith(
-  fetch(evt.request).catch(() => {
-    return caches.open(CACHE_NAME).then((cache) => {
-      return cache.match("offline.html");
-    });
-  })
-);
+
+async function networkAndCache(req) {
+  const cache = await caches.open(cacheName);
+  try {
+    const fresh = await fetch(req);
+    await cache.put(req, fresh.clone());
+    return fresh;
+  } catch (e) {
+    const cached = await cache.match(req);
+    return cached;
+  }
+}

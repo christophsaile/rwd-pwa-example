@@ -3,10 +3,12 @@ window.addEventListener("load", function () {
 });
 
 // Register service worker.
-function initServiceWorker() {
+async function initServiceWorker() {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./pwa/serviceWorker.js").then((reg) => {
-      console.log("Service worker registered.", reg);
-    });
+    try {
+      await navigator.serviceWorker.register("./pwa/serviceWorker.js");
+    } catch (e) {
+      console.log(`SW registration failed`);
+    }
   }
 }
