@@ -44,7 +44,7 @@ ul {
 
 .banner {
   align-content: center;
-  display: none;
+  display: flex;
   justify-content: center;
   width: 100%;
 }
