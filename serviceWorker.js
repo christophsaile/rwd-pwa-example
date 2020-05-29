@@ -5,7 +5,7 @@ const staticAssets = [
   "./style.css",
   "./main.js",
   "./manifest.json",
-  "./assets/background-img.jpg",
+  "./assets/img.jpg",
 ];
 
 // Cache static files when the Services Worker gets installed
